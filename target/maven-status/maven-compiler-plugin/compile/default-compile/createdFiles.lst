@@ -1,0 +1,17 @@
+com\firstbrave\image\feature\utils\Pixel.class
+com\firstbrave\image\feature\utils\PriorityQueue.class
+com\firstbrave\image\feature\extractor\PHash.class
+com\firstbrave\image\feature\utils\SignatureData.class
+com\firstbrave\image\feature\extractor\AnnularColorLayoutHistogram.class
+com\firstbrave\image\feature\extractor\DHash.class
+com\firstbrave\image\feature\extractor\ColorCoherenceVector.class
+com\firstbrave\image\feature\utils\GaussFilter.class
+com\firstbrave\image\feature\utils\ImageMatchUtil.class
+com\firstbrave\image\feature\utils\ImageUtil.class
+com\firstbrave\image\feature\utils\GaussianSmoothing.class
+com\firstbrave\image\feature\extractor\ImageFeature.class
+com\firstbrave\image\feature\extractor\RHash.class
+com\firstbrave\image\feature\utils\Util.class
+com\firstbrave\image\feature\extractor\HSVColorHistogram.class
+com\firstbrave\image\feature\utils\Coordinate.class
+com\firstbrave\image\feature\utils\HSV.class
