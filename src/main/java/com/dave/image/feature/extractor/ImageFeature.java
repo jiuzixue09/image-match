@@ -1,6 +1,7 @@
 package com.dave.image.feature.extractor;
 
 import java.awt.image.BufferedImage;
+import java.math.BigInteger;
 
 import com.dave.image.feature.utils.FeatureUtil;
 
@@ -49,6 +50,13 @@ public abstract class ImageFeature {
         }
         return FeatureUtil.matrix2string(this.featureMatrix);
     }
+
+    public String getHEXFeature(){
+		String stringFeature = getStringFeature();
+		stringFeature = "1" + stringFeature;
+		String f1 = new BigInteger(stringFeature, 2).toString(16);
+    	return f1;
+	}
 
     public int[][] getMatrixFeature() {
 		if (this instanceof PHash || this instanceof RHash || this instanceof DHash) {
