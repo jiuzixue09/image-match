@@ -20,11 +20,11 @@ import com.dave.image.feature.utils.ImageUtil;
 
 public class TestImageMatch {
 	public static void main(String[] args) throws IOException {
-		File image1 = new File("C:\\Users\\Administrator\\Desktop\\1.jpg");
+		File image1 = new File("C:\\Users\\Administrator\\Desktop\\5.jpg");
 		BufferedImage img1 = ImageIO.read(image1);
 		File image2 = new File("C:\\Users\\Administrator\\Desktop\\2.jpg");
 		BufferedImage img2 = ImageIO.read(image2);
-		
+		//1e4f270797cb6eb676524db4da5a5b2fbb59796b66da68692dade58dada5836db4a4b6f61687969295b692531b3d1f5e5a49d2dbc9ccccce4d6d672643efa783531b2db69b9b0976da4d2c2cbe4b0d8da492793c3cbe0b2797f6d24
 		ImageFeature annularColorLayoutHistogram = new AnnularColorLayoutHistogram();
 		ImageFeature colorCoherenceVector = new ColorCoherenceVector();
 		ImageFeature hsvColorHistogram = new HSVColorHistogram();
@@ -73,9 +73,9 @@ public class TestImageMatch {
 		System.out.println("V颜色直方图:" + d);
 		
 		dHash.extract(img1);
-		String str1 = "1" + dHash.getStringFeature();
+		String str1 = dHash.getStringFeature();
 		dHash.extract(img2);
-		String str2 = "1" + dHash.getStringFeature();
+		String str2 =  dHash.getStringFeature();
 		
 		d = ImageUtil.calculateSimilarity(str1, str2);
 		System.out.println("dhash:" + d);
@@ -83,6 +83,8 @@ public class TestImageMatch {
 		String f2 = new BigInteger(str2, 2).toString(16);
 		System.out.println(f1);
 		System.out.println(f2);
+		System.out.println(str2);
+		System.out.println(str1);
 		System.out.println(new BigInteger(f1,16).toString(2));
 
 		pHash.extract(img1);
