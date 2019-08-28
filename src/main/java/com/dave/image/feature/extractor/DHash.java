@@ -44,7 +44,7 @@ public class DHash extends ImageFeature{
     public void extract(BufferedImage srcImg) {
         // 缩小尺寸，简化色彩
         int[][] grayMatrix = ImageUtil.getGrayPixel(srcImg, WIDTH + 2, HEIGHT + 2);
-        // 缩小DCT，计算平均值
+        // 计算均值
         if(grayMatrix == null || grayMatrix.length == 0 || grayMatrix[0].length == 0) return;
         double[][] average = new double[WIDTH][HEIGHT];
         for(int i = 0; i < WIDTH; i++){
