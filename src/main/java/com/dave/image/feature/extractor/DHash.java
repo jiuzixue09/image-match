@@ -21,13 +21,14 @@ public class DHash extends ImageFeature{
 
     private String getFeature(int[][] matrix, double[][] average) {
     	StringBuffer sb = new StringBuffer();
-    	for (int i = 0; i < average.length; i++) {
-			for (int j = 0; j < average[0].length; j++) {
-				
-				for (int k = 0; k < 3; k++) {
-					append(matrix[i + k][j], average[i][j], sb);
-					append(matrix[i + k][j + 1], average[i][j], sb);
-					append(matrix[i + k][j + 2], average[i][j], sb);
+    	for (int i = 1; i < matrix.length - 1; i++) {
+			for (int j = 1; j < matrix[0].length - 1; j++) {
+
+				for (int k = -1; k < 2; k++) {
+					append(matrix[ i + 1][j + 1], average[i + k][j -1], sb);
+					if(k != 0) append(matrix[ i + 1][j + 1], average[i + k][j], sb);
+					append(matrix[ i + 1][j + 1], average[i + k][j +1], sb);
+
 				}
 			}
 		}
@@ -43,16 +44,21 @@ public class DHash extends ImageFeature{
 
     public void extract(BufferedImage srcImg) {
         // 缩小尺寸，简化色彩
-        int[][] grayMatrix = ImageUtil.getGrayPixel(srcImg, WIDTH + 2, HEIGHT + 2);
+        int[][] grayMatrix = ImageUtil.getGrayPixel(srcImg, WIDTH, HEIGHT);
         // 计算均值
         if(grayMatrix == null || grayMatrix.length == 0 || grayMatrix[0].length == 0) return;
         double[][] average = new double[WIDTH][HEIGHT];
-        for(int i = 0; i < WIDTH; i++){
-            for(int j = 0; j < HEIGHT; j++){
-            	for (int k = 0; k < 3; k++) {
+
+        for(int i = 0; i < HEIGHT - 1; i++){
+            for(int j = 0; j < WIDTH - 1; j++){
+            	for (int k = -1; k < 2; k++) {
+            		if(i + k < 0) continue;
+            		if(j - 1 > -1) average[i][j] += grayMatrix[i + k][j -1];
+
             		average[i][j] += grayMatrix[i + k][j];
+
             		average[i][j] += grayMatrix[i + k][j + 1];
-            		average[i][j] += grayMatrix[i + k][j + 2];
+
 				}
             	average[i][j] /= 9;
             }
