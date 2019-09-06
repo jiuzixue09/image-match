@@ -2,7 +2,7 @@ package com.dave.image.feature.utils;
 
 import com.dave.image.feature.vo.Pixel;
 
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -43,26 +43,25 @@ public class ImageUtil {
     }
 
     public static int[][] getGrayPixel(BufferedImage srcImg, int width, int height) {
-        BufferedImage bi = null;
+        BufferedImage scaledImage = null;
         try {
-            bi = resizeImage(srcImg, width, height, BufferedImage.TYPE_INT_RGB);
+            scaledImage = resizeImage(srcImg, width, height, BufferedImage.TYPE_BYTE_GRAY);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        int minx = bi.getMinX();
-        int miny = bi.getMinY();
-        int[][] matrix = new int[width - minx][height - miny];
-        for (int i = minx; i < width; i++) {
-            for (int j = miny; j < height; j++) {
-                int pixel = bi.getRGB(i, j);
-                int red = (pixel & 0xff0000) >> 16;
-                int green = (pixel & 0xff00) >> 8;
-                int blue = (pixel & 0xff);
-                int gray = (int) (red * 0.3 + green * 0.59 + blue * 0.11);
-                matrix[i][j] = gray;
+
+        // Next, we want to calculate the 2D discrete cosine transform for our small image.
+        final float[] dct = new float[width * height];
+        scaledImage.getData().getPixels(0, 0, width, height, dct);
+
+        int[][] matrix = new int[width][height];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                matrix[x][y] = (int)dct[x * width + y];
             }
         }
+
         return matrix;
     }
 
@@ -242,9 +241,8 @@ public class ImageUtil {
     private static double[][] coefficient(int n) {
         double[][] coeff = new double[n][n];
         double sqrt = 1.0 / Math.sqrt(n);
-        for (int i = 0; i < n; i++) {
-            coeff[0][i] = sqrt;
-        }
+        Arrays.fill(coeff[0],sqrt);
+
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 coeff[i][j] = Math.sqrt(2.0 / n) * Math.cos(i * Math.PI * (j + 0.5) / (double) n);

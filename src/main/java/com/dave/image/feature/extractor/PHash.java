@@ -27,7 +27,7 @@ public class PHash extends ImageFeature{
         grayMatrix = ImageUtil.DCT(grayMatrix, 32);
         // 缩小DCT，计算平均值
         int[][] newMatrix = new int[8][8];
-        double average = 0;
+        double average = -grayMatrix[0][0];
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 newMatrix[i][j] = grayMatrix[i][j];
